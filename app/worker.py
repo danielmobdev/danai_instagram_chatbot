@@ -43,16 +43,18 @@ async def process_queue():
     while True:
         item = await queue.dequeue()
         if item:
-            # Get conversation history
-            conversation = await conversation_store.get_conversation(item.user_id)
+            # Temporarily disable conversation retrieval for testing
+            # TODO: Fix Redis connection issues
+            conversation = []  # Empty conversation for testing
 
-            # Add user message to conversation
-            user_msg = ConversationMessage(
-                role="user",
-                content=item.message_text,
-                timestamp=item.timestamp
-            )
-            await conversation_store.add_message(item.user_id, user_msg)
+            # Temporarily disable conversation storage for testing
+            # TODO: Fix Redis connection issues
+            # user_msg = ConversationMessage(
+            #     role="user",
+            #     content=item.message_text,
+            #     timestamp=item.timestamp
+            # )
+            # await conversation_store.add_message(item.user_id, user_msg)
 
             # Generate AI response
             ai_response = await ai_responder.generate_response(conversation, item.message_text)
@@ -61,13 +63,14 @@ async def process_queue():
             success = await instagram_client.send_message(item.user_id, ai_response)
 
             if success:
-                # Add AI response to conversation
-                ai_msg = ConversationMessage(
-                    role="assistant",
-                    content=ai_response,
-                    timestamp=int(time.time() * 1000)  # current time in ms
-                )
-                await conversation_store.add_message(item.user_id, ai_msg)
+                # Temporarily disable AI response storage for testing
+                # TODO: Fix Redis connection issues
+                # ai_msg = ConversationMessage(
+                #     role="assistant",
+                #     content=ai_response,
+                #     timestamp=int(time.time() * 1000)  # current time in ms
+                # )
+                # await conversation_store.add_message(item.user_id, ai_msg)
                 print(f"Responded to {item.user_id}: {ai_response}")
             else:
                 print(f"Failed to send message to {item.user_id}")
