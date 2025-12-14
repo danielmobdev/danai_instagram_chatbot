@@ -26,6 +26,7 @@ class InstagramClient:
                 return True
             except httpx.HTTPStatusError as e:
                 print(f"Error sending message: {e}")
+                print(f"Response body: {response.text}")
                 return False
             except Exception as e:
                 print(f"Unexpected error: {e}")
