@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: instagram-bot
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: INSTAGRAM_ACCESS_TOKEN
+        value: ${INSTAGRAM_ACCESS_TOKEN}
+      - key: INSTAGRAM_BUSINESS_ID
+        value: ${INSTAGRAM_BUSINESS_ID}
+      - key: INSTAGRAM_APP_ID
+        value: ${INSTAGRAM_APP_ID}
+      - key: INSTAGRAM_VERIFY_TOKEN
+        value: ${INSTAGRAM_VERIFY_TOKEN}
+      - key: INSTAGRAM_APP_SECRET
+        value: ${INSTAGRAM_APP_SECRET}
+      - key: REDIS_URL
+        value: ${REDIS_URL}
+      - key: GEMINI_API_KEY
+        value: ${GEMINI_API_KEY}
+      - key: RATE_LIMIT_PER_USER
+        value: ${RATE_LIMIT_PER_USER}
+      - key: RATE_LIMIT_WINDOW
+        value: ${RATE_LIMIT_WINDOW}
+      - key: SPAM_THRESHOLD
+        value: ${SPAM_THRESHOLD}
